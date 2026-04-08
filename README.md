@@ -29,57 +29,12 @@ GP/
 
 ## 🔄 Project Flow
 
-```
-┌─────────────────────────────────────┐
-│         CSV Dataset                 │
-│  vhda_synthetic_normalized.csv      │
-│  (WiFi + 5G radio & QoS features)  │
-└──────────────────┬──────────────────┘
-                   │
-                   ▼
-┌─────────────────────────────────────┐
-│         env.py — VHDAEnv            │
-│  • reset()  → initialize episode   │
-│  • step()   → execute action       │
-│    - Action 0: Stay on WiFi        │
-│    - Action 1: Switch to 5G        │
-│  • Reward   → QoS improvement      │
-│    - Penalty: unnecessary handover │
-│  • get_qos_stats() → metrics       │
-└──────────────────┬──────────────────┘
-                   │  state (8 values)
-                   ▼
-┌─────────────────────────────────────┐
-│       agent.py — DDQNAgent          │
-│  • QNetwork (256→256→2 neurons)    │
-│  • Online Net  → learns every step │
-│  • Target Net  → updates every 10  │
-│  • Replay Memory (10,000 samples)  │
-│  • Epsilon-Greedy exploration      │
-│    ε: 1.0 → 0.02 (decay 0.995)    │
-└──────────────────┬──────────────────┘
-                   │  action (0 or 1)
-                   ▼
-┌─────────────────────────────────────┐
-│       run.py — Training Loop        │
-│  500 episodes × 500 steps each     │
-│  ┌──────────────────────────────┐  │
-│  │  reset → act → step →       │  │
-│  │  remember → learn → repeat  │  │
-│  └──────────────────────────────┘  │
-│  • Log every 50 episodes           │
-│  • Decay epsilon after each ep     │
-└──────────────────┬──────────────────┘
-                   │
-                   ▼
-┌─────────────────────────────────────┐
-│            Results                  │
-│  📈 Total Reward per episode       │
-│  📶 Average QoS per episode        │
-│  🔁 Unnecessary Handovers count    │
-│  💾 Saved → Results/ddqn_results.png│
-└─────────────────────────────────────┘
-```
+<img width="1888" height="2228" alt="Gemini_Generated_Image_63pasz63pasz63pa" src="https://github.com/user-attachments/assets/03247686-2188-42f3-9b8a-89125be9f2a2" />
+
+## Result
+
+<img width="1000" height="969" alt="Figure_1" src="https://github.com/user-attachments/assets/e99c386d-4582-4768-acdf-d17b366c88e1" />
+
 
 ---
 
